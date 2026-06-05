@@ -1,0 +1,1800 @@
+/*
+ * Arbor admin styles — scoped to .Arbor, built on ProcessWire AdminThemeUikit
+ * Konkat tokens (--pw-*). No hard-coded colors so dark/light themes work.
+ */
+
+/* ---- multi-column Inputfields ----
+ * PW's native InputfieldWrapper applies an inline `style="width: X%"` to
+ * each <li> when columnWidth is set. We're rendering the markup by hand,
+ * so we honor `data-colwidth="N"` ourselves via float-based columns and a
+ * clearfix on the parent ul.Inputfields. */
+.Arbor ul.Inputfields { padding: 0; margin: 0; list-style: none; }
+.Arbor .Inputfields,
+.Arbor .Inputfield,
+.Arbor .InputfieldHeader,
+.Arbor .InputfieldContent,
+.Arbor .ui-widget,
+.Arbor .ui-widget-header,
+.Arbor .ui-widget-content {
+    border: 0 !important;
+    box-shadow: none !important;
+}
+.Arbor .InputfieldHeader,
+.Arbor .InputfieldContent,
+.Arbor .ui-widget-header,
+.Arbor .ui-widget-content {
+    background: transparent !important;
+}
+.Arbor ul.Inputfields::after { content: ""; display: table; clear: both; }
+.Arbor ul.Inputfields > li.Inputfield {
+    float: left;
+    width: 100%;
+    box-sizing: border-box;
+    padding-right: 14px;
+    padding-bottom: 10px;
+    border: 0 !important;
+}
+.Arbor ul.Inputfields > li.Inputfield:last-child { padding-right: 0; }
+
+.Arbor ul.Inputfields > li.Inputfield[data-colwidth="15"] { width: 15%; }
+.Arbor ul.Inputfields > li.Inputfield[data-colwidth="20"] { width: 20%; }
+.Arbor ul.Inputfields > li.Inputfield[data-colwidth="25"] { width: 25%; }
+.Arbor ul.Inputfields > li.Inputfield[data-colwidth="30"] { width: 30%; }
+.Arbor ul.Inputfields > li.Inputfield[data-colwidth="33"] { width: 33.3333%; }
+.Arbor ul.Inputfields > li.Inputfield[data-colwidth="34"] { width: 33.3334%; }
+.Arbor ul.Inputfields > li.Inputfield[data-colwidth="40"] { width: 40%; }
+.Arbor ul.Inputfields > li.Inputfield[data-colwidth="50"] { width: 50%; }
+.Arbor ul.Inputfields > li.Inputfield[data-colwidth="60"] { width: 60%; }
+.Arbor ul.Inputfields > li.Inputfield[data-colwidth="65"] { width: 65%; }
+.Arbor ul.Inputfields > li.Inputfield[data-colwidth="66"] { width: 66.6666%; }
+.Arbor ul.Inputfields > li.Inputfield[data-colwidth="67"] { width: 66.6667%; }
+.Arbor ul.Inputfields > li.Inputfield[data-colwidth="70"] { width: 70%; }
+.Arbor ul.Inputfields > li.Inputfield[data-colwidth="75"] { width: 75%; }
+
+/* compact inputfield: tighter header, no chevron column padding */
+.Arbor .arbor-card .Inputfield {
+    background: transparent;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+.Arbor .arbor-card .Inputfield > .InputfieldHeader {
+    padding: 6px 0 2px;
+    background: transparent;
+    border: none;
+    cursor: default;
+    font-weight: 600;
+    font-size: 0.82rem;
+    color: var(--pw-text-color);
+}
+.Arbor .arbor-card .Inputfield > .InputfieldHeader .toggle-icon {
+    display: none;   /* hide collapsible chevron — these aren't collapsible */
+}
+.Arbor .arbor-card .Inputfield > .InputfieldContent {
+    padding: 0 0 12px;
+    border: 0 !important;
+    background: transparent;
+    box-shadow: none !important;
+}
+.Arbor .arbor-card .ui-widget-header,
+.Arbor .arbor-card .ui-widget-content {
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+.Arbor .arbor-card .Inputfield > .InputfieldContent > .notes {
+    background: transparent;
+    margin: 4px 0 0;
+    padding: 0;
+    color: var(--pw-muted-color);
+    font-size: 0.78rem;
+    font-style: italic;
+}
+.Arbor .notes,
+.Arbor .description {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+.Arbor .arbor-card .Inputfield > .InputfieldContent > .description {
+    background: transparent;
+    margin: 4px 0 0;
+    padding: 0;
+    color: var(--pw-muted-color);
+    font-size: 0.82rem;
+}
+.Arbor .arbor-card .InputfieldStateRequired > .InputfieldHeader::after {
+    content: " *";
+    color: var(--pw-main-color);
+}
+
+.Arbor .uk-input,
+.Arbor .uk-select,
+.Arbor .uk-textarea,
+.Arbor .arbor-soundex-large {
+    border: 0 !important;
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--pw-inputs-background) 88%, var(--pw-text-color) 12%) !important;
+    box-shadow: none !important;
+}
+.Arbor .uk-input:focus,
+.Arbor .uk-select:focus,
+.Arbor .uk-textarea:focus {
+    outline: 2px solid color-mix(in srgb, var(--pw-main-color) 70%, transparent);
+    outline-offset: 1px;
+}
+
+@media (max-width: 720px) {
+    .Arbor ul.Inputfields > li.Inputfield { width: 100% !important; }
+}
+
+/* Konkat applies an underlined link style globally; buttons, card titles,
+ * accordion headers and other "structural" anchors inherit it and look broken.
+ * Force-strip text-decoration on every link class we use as a navigation
+ * surface. In-text links inside .notes / .description / paragraphs still
+ * use the default underlined style. */
+.Arbor a.uk-button,
+.Arbor a.uk-button:hover,
+.Arbor a.uk-button:focus,
+.Arbor a.uk-button:active,
+.Arbor a.uk-button-default,
+.Arbor a.uk-button-primary,
+.Arbor a.uk-button-secondary,
+.Arbor a.uk-button-danger,
+.Arbor a.uk-button-text,
+.Arbor a.uk-button-link,
+.Arbor .uk-accordion-title,
+.Arbor .uk-accordion-title:hover,
+.Arbor .uk-accordion-title:focus,
+.Arbor .uk-link-heading,
+.Arbor .uk-link-heading:hover,
+.Arbor a.uk-card-title,
+.Arbor .arbor-tree-card-title,
+.Arbor .arbor-tree-card-title:hover,
+.Arbor .arbor-overview-card,
+.Arbor .arbor-overview-card:hover,
+.Arbor .arbor-section-link,
+.Arbor .arbor-section-link:hover,
+.Arbor .arbor-quicklinks a,
+.Arbor .arbor-quicklinks a:hover {
+    text-decoration: none !important;
+}
+
+/* ---------- page header ---------- */
+.Arbor .arbor-page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--pw-border-color);
+    flex-wrap: wrap;
+}
+.Arbor .arbor-page-header h2 {
+    margin: 0;
+}
+.Arbor .arbor-page-header .uk-text-meta a {
+    color: var(--pw-muted-color);
+}
+.Arbor .arbor-page-header .uk-text-meta a:hover {
+    color: var(--pw-main-color);
+}
+.Arbor .arbor-page-actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* ---------- toolbar ---------- */
+.Arbor .arbor-toolbar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 16px;
+}
+.Arbor .arbor-inline-form {
+    display: inline-flex;
+    margin: 0;
+}
+.Arbor .arbor-log-form {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding: 14px;
+    border: 1px solid color-mix(in srgb, var(--pw-muted-color) 24%, transparent);
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--pw-blocks-background) 82%, var(--pw-text-color) 8%);
+}
+.Arbor .arbor-research-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 8px;
+    margin: 0 0 18px;
+}
+.Arbor .arbor-research-summary > a {
+    display: block;
+    padding: 10px 12px;
+    border: 1px solid color-mix(in srgb, var(--pw-muted-color) 22%, transparent);
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--pw-blocks-background) 86%, var(--pw-text-color) 6%);
+    color: inherit;
+    text-decoration: none;
+}
+.Arbor .arbor-research-summary > a:hover,
+.Arbor .arbor-research-summary > a:focus {
+    border-color: var(--pw-accent-color);
+    background: color-mix(in srgb, var(--pw-accent-color) 9%, var(--pw-blocks-background));
+    text-decoration: none;
+}
+.Arbor .arbor-research-summary strong {
+    display: block;
+    font-size: 1.35rem;
+    line-height: 1.1;
+    color: var(--pw-text-color);
+}
+.Arbor .arbor-research-summary span {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.78rem;
+    color: var(--pw-muted-color);
+}
+.Arbor .arbor-next-actions {
+    margin: 0 0 20px;
+    padding: 12px;
+    border: 1px solid color-mix(in srgb, var(--pw-main-color) 20%, transparent);
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--pw-main-color) 5%, var(--pw-blocks-background));
+}
+.Arbor .arbor-next-actions > strong {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.86rem;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    color: var(--pw-muted-color);
+}
+.Arbor .arbor-next-actions > div {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 8px;
+}
+.Arbor .arbor-next-actions a {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2px 9px;
+    align-items: center;
+    padding: 9px 10px;
+    border-radius: 6px;
+    color: inherit;
+    text-decoration: none;
+    background: color-mix(in srgb, var(--pw-blocks-background) 90%, var(--pw-text-color) 6%);
+}
+.Arbor .arbor-next-actions a:hover,
+.Arbor .arbor-next-actions a:focus {
+    outline: 1px solid var(--pw-main-color);
+    text-decoration: none;
+}
+.Arbor .arbor-next-actions span {
+    grid-row: span 2;
+    min-width: 30px;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--pw-main-color);
+}
+.Arbor .arbor-next-actions b {
+    font-size: 0.9rem;
+}
+.Arbor .arbor-next-actions em {
+    color: var(--pw-muted-color);
+    font-size: 0.8rem;
+    font-style: normal;
+}
+
+/* ---------- legacy section label (kept for places etc.) ---------- */
+.Arbor .arbor-section-label {
+    display: block;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--pw-muted-color);
+    margin: 24px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--pw-border-color);
+}
+
+/* ---------- card panels ---------- */
+.Arbor .arbor-card {
+    margin-bottom: 16px;
+    border-radius: 6px;
+}
+.Arbor .arbor-card .uk-card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 14px;
+    padding-bottom: 10px;
+    border-bottom: 0;
+    color: var(--pw-text-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.Arbor .arbor-card .uk-card-title [uk-icon] {
+    color: var(--pw-main-color);
+}
+
+/* highlight the first-required card (name) for new persons */
+.Arbor .arbor-card-names {
+    border-left: 3px solid var(--pw-main-color);
+}
+.Arbor .arbor-soundex-large {
+    display: inline-block;
+    padding: 6px 10px;
+    background: var(--pw-inputs-background);
+    border: 0;
+    border-radius: 4px;
+    font-size: 0.85em;
+    color: var(--pw-muted-color);
+    width: 100%;
+    box-sizing: border-box;
+}
+.Arbor .arbor-repeater-empty {
+    background: transparent;
+}
+.Arbor .arbor-repeater-empty td {
+    background: transparent;
+    padding: 14px 8px;
+}
+.Arbor .arbor-card .Inputfields {
+    margin: 0;
+    padding: 0;
+}
+.Arbor .arbor-card .Inputfield {
+    background: transparent;
+}
+
+/* layout grid */
+.Arbor .arbor-edit-grid {
+    margin-top: 0;
+}
+
+/* sticky action bar at bottom of forms */
+.Arbor .arbor-form-actions {
+    position: sticky;
+    bottom: 0;
+    background: var(--pw-blocks-background);
+    border-top: 1px solid var(--pw-border-color);
+    padding: 12px 0;
+    margin: 16px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 5;
+}
+.Arbor .arbor-form-actions .uk-button[disabled] {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+.Arbor .arbor-save-hint {
+    color: var(--pw-muted-color);
+    font-size: 0.9rem;
+}
+
+/* ---------- personal dashboard ---------- */
+.Arbor .arbor-welcome {
+    max-width: 640px;
+    margin: 32px auto;
+    padding: 32px;
+    border-radius: 8px;
+}
+.Arbor .arbor-welcome [uk-icon] {
+    color: var(--pw-main-color);
+}
+
+.Arbor .arbor-section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    gap: 8px;
+}
+
+.Arbor .arbor-dashboard-main { margin-top: 0; }
+
+.Arbor .arbor-tree-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.Arbor .arbor-tree-card-lg {
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.15s ease;
+}
+.Arbor .arbor-tree-card-lg:hover {
+    border-color: var(--pw-main-color);
+}
+.Arbor .arbor-tree-card-body {
+    padding: 18px 20px;
+}
+.Arbor .arbor-tree-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+.Arbor .arbor-tree-card-title {
+    color: var(--pw-text-color);
+    font-size: 1.35rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: block;
+    line-height: 1.2;
+}
+.Arbor .arbor-tree-card-title:hover {
+    color: var(--pw-main-color);
+}
+.Arbor .arbor-tree-card-stats {
+    list-style: none;
+    padding: 12px 14px;
+    margin: 0 0 12px;
+    background: var(--pw-inputs-background);
+    border-radius: 6px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--pw-muted-color);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+.Arbor .arbor-tree-card-stats li {
+    line-height: 1.2;
+}
+.Arbor .arbor-tree-card-stats strong {
+    display: block;
+    font-size: 1.5rem;
+    color: var(--pw-text-color);
+    font-weight: 600;
+    margin-bottom: 2px;
+    letter-spacing: 0;
+}
+.Arbor .arbor-tree-card-stats span {
+    display: block;
+}
+.Arbor .arbor-tree-card-recent {
+    font-size: 0.82rem;
+    color: var(--pw-muted-color);
+    padding: 0 2px;
+    line-height: 1.4;
+}
+.Arbor .arbor-tree-card-recent a {
+    color: var(--pw-text-color);
+}
+.Arbor .arbor-tree-card-recent a:hover {
+    color: var(--pw-main-color);
+}
+.Arbor .arbor-tree-card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 12px 20px;
+    background: var(--pw-inputs-background);
+    border-top: 1px solid var(--pw-border-color);
+}
+.Arbor .arbor-tree-card-actions {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 720px) {
+    .Arbor .arbor-tree-card-stats {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ---------- empty / skeleton states ---------- */
+.Arbor .arbor-empty {
+    text-align: center;
+    padding: 36px 20px;
+    color: var(--pw-muted-color);
+    background: linear-gradient(0deg, var(--pw-inputs-background) 0%, transparent 100%);
+    border-radius: 6px;
+}
+.Arbor .arbor-empty [uk-icon] {
+    color: var(--pw-border-color);
+    margin-bottom: 10px;
+    display: inline-block;
+}
+.Arbor .arbor-empty h4 {
+    color: var(--pw-text-color);
+    margin: 0 0 6px;
+    font-size: 1rem;
+}
+.Arbor .arbor-empty p {
+    margin: 0 auto 14px;
+    max-width: 420px;
+    font-size: 0.9rem;
+    line-height: 1.45;
+}
+.Arbor .arbor-empty-mini {
+    padding: 14px;
+    background: transparent;
+}
+.Arbor .arbor-empty-mini [uk-icon] { margin-bottom: 4px; }
+.Arbor .arbor-empty-mini p {
+    font-size: 0.82rem;
+    margin: 0;
+}
+
+/* ---------- KPI strip on tree overview ---------- */
+.Arbor .arbor-overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px;
+    margin-bottom: 16px;
+}
+.Arbor .arbor-overview-card {
+    background: var(--pw-blocks-background);
+    border: 1px solid var(--pw-border-color);
+    border-radius: 6px;
+    padding: 14px 10px;
+    text-decoration: none !important;
+    color: var(--pw-text-color);
+    text-align: center;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.Arbor .arbor-overview-card:hover {
+    border-color: var(--pw-main-color);
+    transform: translateY(-1px);
+}
+.Arbor .arbor-overview-icon {
+    color: var(--pw-muted-color);
+    margin-bottom: 4px;
+}
+.Arbor .arbor-overview-card:hover .arbor-overview-icon {
+    color: var(--pw-main-color);
+}
+.Arbor .arbor-overview-count {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.05;
+}
+.Arbor .arbor-overview-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--pw-muted-color);
+    margin-top: 4px;
+}
+
+/* ---------- card title view-all link on the right ---------- */
+.Arbor .arbor-section-link {
+    margin-left: auto;
+    font-size: 0.82rem;
+    color: var(--pw-muted-color);
+}
+.Arbor .arbor-section-link:hover { color: var(--pw-main-color); }
+.Arbor .arbor-card .uk-card-title { gap: 8px; }
+
+/* ---------- simple create-person flow ---------- */
+.Arbor .arbor-person-create {
+    max-width: 900px;
+}
+.Arbor .arbor-create-main {
+    max-width: 760px;
+}
+.Arbor .arbor-create-card {
+    background: var(--pw-blocks-background);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 16px;
+}
+.Arbor .arbor-create-head {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 22px;
+}
+.Arbor .arbor-create-head [uk-icon] {
+    color: var(--pw-main-color);
+    margin-top: 3px;
+}
+.Arbor .arbor-create-head h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+.Arbor .arbor-create-head p {
+    margin: 4px 0 0;
+    color: var(--pw-muted-color);
+}
+.Arbor .arbor-simple-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    align-items: end;
+}
+.Arbor .arbor-simple-grid-name {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.Arbor .arbor-simple-grid-birth {
+    grid-template-columns: 180px 170px minmax(0, 1fr);
+}
+.Arbor .arbor-union-child-summary {
+    margin-top: 16px;
+}
+.Arbor .arbor-simple-grid label,
+.Arbor .arbor-simple-full {
+    display: block;
+    margin: 0;
+}
+.Arbor .arbor-simple-grid label > span,
+.Arbor .arbor-simple-full > span {
+    display: block;
+    font-size: 0.86rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--pw-text-color);
+}
+.Arbor .arbor-simple-grid label b {
+    color: var(--pw-main-color);
+}
+.Arbor .arbor-static-field {
+    min-height: 34px;
+    padding: 7px 10px;
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--pw-text-color) 8%, transparent);
+    color: var(--pw-text-color);
+    line-height: 1.35;
+}
+.Arbor .arbor-simple-check {
+    min-height: 40px;
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 3px;
+}
+.Arbor .arbor-simple-check > span {
+    display: inline !important;
+    margin: 0 !important;
+    font-weight: 400 !important;
+}
+.Arbor .arbor-create-divider {
+    height: 1px;
+    background: color-mix(in srgb, var(--pw-border-color) 35%, transparent);
+    margin: 22px 0 18px;
+}
+.Arbor .arbor-create-card h4 {
+    margin: 0 0 12px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+.Arbor .arbor-create-more {
+    margin-top: 20px;
+}
+.Arbor .arbor-create-more summary {
+    cursor: pointer;
+    color: var(--pw-main-color);
+    font-weight: 600;
+}
+.Arbor .arbor-create-more .arbor-simple-grid {
+    margin-top: 14px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.Arbor .arbor-create-more .arbor-simple-full {
+    margin-top: 16px;
+}
+.Arbor .arbor-inline-note {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    padding: 10px 12px;
+    margin: -6px 0 18px;
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--pw-main-color) 12%, var(--pw-blocks-background));
+    color: var(--pw-text-color);
+}
+.Arbor .arbor-inline-note[hidden] {
+    display: none !important;
+}
+.Arbor .arbor-inline-note [uk-icon] {
+    color: var(--pw-main-color);
+    flex: 0 0 auto;
+}
+.Arbor .arbor-inline-warning {
+    background: color-mix(in srgb, #d99b00 18%, var(--pw-blocks-background));
+}
+.Arbor .arbor-inline-warning [uk-icon] {
+    color: #d99b00;
+}
+.Arbor .arbor-field-link {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 0.82rem;
+    color: var(--pw-main-color);
+}
+.Arbor .arbor-person-profile-edit {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 280px;
+    gap: 16px;
+    max-width: 1040px;
+}
+.Arbor .arbor-profile-card {
+    background: var(--pw-blocks-background);
+    border-radius: 8px;
+    padding: 22px;
+    margin-bottom: 16px;
+}
+.Arbor .arbor-profile-head {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    margin-bottom: 22px;
+}
+.Arbor .arbor-profile-avatar {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--pw-main-color) 18%, var(--pw-inputs-background));
+    display: grid;
+    place-items: center;
+    color: var(--pw-main-color);
+    overflow: hidden;
+    flex: 0 0 auto;
+}
+.Arbor .arbor-profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.Arbor .arbor-profile-head h3,
+.Arbor .arbor-profile-card h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+.Arbor .arbor-profile-head p {
+    margin: 3px 0 0;
+    color: var(--pw-muted-color);
+}
+.Arbor .arbor-profile-side .arbor-profile-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+.Arbor .arbor-profile-stats {
+    display: grid;
+    gap: 8px;
+    color: var(--pw-muted-color);
+}
+.Arbor .arbor-line-checks {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+@media (max-width: 860px) {
+    .Arbor .arbor-simple-grid,
+    .Arbor .arbor-simple-grid-name,
+    .Arbor .arbor-simple-grid-birth,
+    .Arbor .arbor-create-more .arbor-simple-grid,
+    .Arbor .arbor-person-profile-edit {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---------- person/family rows ---------- */
+.Arbor .arbor-person-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.Arbor .arbor-person-sex {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.Arbor .arbor-sex-m { background: light-dark(#4a7ca8, #6ea8d8); }
+.Arbor .arbor-sex-f { background: light-dark(#c46e6e, #d88080); }
+.Arbor .arbor-sex-u, .Arbor .arbor-sex-x { background: var(--pw-muted-color); }
+.Arbor .arbor-person-name { flex: 1; }
+.Arbor .arbor-person-meta { flex-shrink: 0; }
+.Arbor .arbor-family-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.Arbor .arbor-list {
+    display: grid;
+    gap: 8px;
+}
+.Arbor .arbor-sublist {
+    display: grid;
+    gap: 6px;
+    margin: -2px 0 8px 18px;
+}
+.Arbor .arbor-list-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 12px 14px;
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--pw-blocks-background) 88%, var(--pw-text-color) 12%);
+    color: var(--pw-text-color);
+    text-decoration: none !important;
+}
+.Arbor .arbor-list-row .arbor-list-main {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+.Arbor .arbor-list-row .arbor-list-meta {
+    flex: 0 1 auto;
+    text-align: right;
+}
+.Arbor .arbor-row-action .uk-button {
+    min-width: 28px;
+    padding: 0 4px;
+}
+.Arbor .arbor-inline-editor {
+    margin-top: 8px;
+}
+.Arbor .arbor-inline-editor summary {
+    width: fit-content;
+    cursor: pointer;
+    color: var(--pw-muted-color);
+    font-size: 0.84rem;
+    font-weight: 600;
+}
+.Arbor .arbor-inline-editor summary:hover {
+    color: var(--pw-main-color);
+}
+.Arbor .arbor-filter-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0;
+}
+.Arbor .arbor-filter-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 34px;
+    padding: 5px 12px;
+    border: 1px solid color-mix(in srgb, var(--pw-text-color) 30%, transparent);
+    border-radius: 999px;
+    color: var(--pw-text-color);
+    text-decoration: none !important;
+    background: transparent;
+}
+.Arbor .arbor-filter-tab:hover,
+.Arbor .arbor-filter-tab.is-active {
+    border-color: var(--pw-main-color);
+    color: var(--pw-main-color);
+}
+.Arbor .arbor-filter-tab strong {
+    min-width: 22px;
+    padding: 1px 7px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--pw-main-color) 14%, transparent);
+    color: inherit;
+    text-align: center;
+    font-size: 0.82rem;
+}
+.Arbor .arbor-context-links {
+    line-height: 1.45;
+}
+.Arbor .arbor-context-links a {
+    color: inherit;
+    text-decoration: none;
+}
+.Arbor .arbor-context-links a:hover,
+.Arbor .arbor-context-links a:focus {
+    color: var(--pw-main-color);
+    text-decoration: underline;
+}
+.Arbor .arbor-mini-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+}
+.Arbor .arbor-mini-metrics span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 22px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--pw-muted-color) 12%, transparent);
+    color: var(--pw-muted-color);
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+.Arbor .arbor-document-quick-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0 2px;
+}
+.Arbor .arbor-document-quick-actions .uk-button {
+    min-height: 30px;
+}
+.Arbor .arbor-document-next-step {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: fit-content;
+    max-width: 720px;
+    margin-top: 8px;
+    padding: 6px 9px;
+    border-radius: 5px;
+    background: color-mix(in srgb, var(--pw-blocks-background) 80%, var(--pw-main-color) 10%);
+    color: var(--pw-muted-color);
+    font-size: 0.84rem;
+}
+.Arbor .arbor-document-url-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 560px;
+    margin-top: 8px;
+}
+.Arbor .arbor-document-url-form .uk-input {
+    min-width: 240px;
+}
+.Arbor .arbor-evidence-list {
+    display: grid;
+    gap: 6px;
+    margin-top: 8px;
+}
+.Arbor .arbor-evidence-chip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    max-width: 720px;
+    padding: 7px 9px;
+    border-radius: 5px;
+    background: color-mix(in srgb, var(--pw-blocks-background) 75%, var(--pw-main-color) 10%);
+    font-size: 0.84rem;
+}
+.Arbor .arbor-evidence-chip em {
+    color: var(--pw-muted-color);
+    font-style: normal;
+}
+.Arbor .arbor-evidence-chip .uk-button {
+    min-width: 26px;
+    padding: 0 4px;
+}
+.Arbor .arbor-evidence-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.Arbor .arbor-evidence-assign {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.Arbor .arbor-evidence-assign .uk-select {
+    min-width: 180px;
+}
+.Arbor .arbor-person-evidence {
+    margin-top: 6px;
+}
+.Arbor .arbor-person-evidence .arbor-evidence-chip {
+    max-width: 560px;
+    padding: 5px 7px;
+    font-size: 0.78rem;
+}
+.Arbor .arbor-document-edit {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    align-items: end;
+    margin-top: 8px;
+}
+.Arbor .arbor-document-edit label {
+    display: grid;
+    gap: 3px;
+    color: var(--pw-muted-color);
+    font-size: 0.78rem;
+}
+.Arbor .arbor-document-edit-full {
+    grid-column: 1 / -1;
+}
+.Arbor .arbor-document-edit .uk-button {
+    justify-self: start;
+}
+.Arbor .arbor-dna-edit {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    align-items: end;
+    margin-top: 8px;
+}
+.Arbor .arbor-dna-edit label {
+    display: grid;
+    gap: 3px;
+    color: var(--pw-muted-color);
+    font-size: 0.78rem;
+}
+.Arbor .arbor-dna-edit-full {
+    grid-column: 1 / -1;
+}
+.Arbor .arbor-dna-edit .uk-button {
+    justify-self: start;
+}
+.Arbor .arbor-subrow {
+    background: color-mix(in srgb, var(--pw-blocks-background) 72%, var(--pw-text-color) 8%);
+    padding-block: 9px;
+}
+.Arbor .arbor-segment-row {
+    margin-left: 18px;
+}
+.Arbor .arbor-photo-grid {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+}
+.Arbor .arbor-photo-card {
+    display: grid;
+    gap: 6px;
+    color: var(--pw-text-color);
+    text-decoration: none !important;
+}
+.Arbor .arbor-photo-card a {
+    color: inherit;
+    text-decoration: none !important;
+}
+.Arbor .arbor-photo-card img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--pw-blocks-background) 80%, var(--pw-text-color) 10%);
+}
+.Arbor .arbor-photo-card span {
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+.Arbor .arbor-photo-card small {
+    color: var(--pw-muted-color);
+}
+.Arbor .arbor-person-mini-link {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+    width: fit-content;
+    margin-top: 4px;
+    color: var(--pw-muted-color);
+    font-size: 0.84rem;
+    font-weight: 500;
+    text-decoration: none !important;
+}
+.Arbor .arbor-person-mini-link:hover {
+    color: var(--pw-main-color);
+}
+.Arbor .arbor-photo-action {
+    justify-self: start;
+}
+.Arbor .arbor-photo-action .uk-button {
+    min-width: 28px;
+    padding: 0 4px;
+}
+.Arbor .arbor-photo-edit {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: minmax(0, 1fr) 86px;
+    align-items: end;
+    margin-top: 4px;
+}
+.Arbor .arbor-photo-edit label {
+    display: grid;
+    gap: 3px;
+    color: var(--pw-muted-color);
+    font-size: 0.78rem;
+}
+.Arbor .arbor-photo-edit-full {
+    grid-column: 1 / -1;
+}
+.Arbor .arbor-photo-edit .uk-button {
+    justify-self: start;
+}
+.Arbor .arbor-photo-actions {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.Arbor .arbor-photo-badge {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+    width: fit-content;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--pw-main-color) 14%, transparent);
+    color: var(--pw-main-color);
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+.Arbor a.arbor-list-row:hover {
+    color: var(--pw-text-color);
+    outline: 1px solid color-mix(in srgb, var(--pw-main-color) 65%, transparent);
+}
+.Arbor .arbor-list-main {
+    font-weight: 600;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+.Arbor .arbor-list-meta {
+    color: var(--pw-muted-color);
+    font-size: 0.86rem;
+    text-align: right;
+    flex-shrink: 0;
+}
+.Arbor .arbor-row-actions {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+}
+.Arbor .arbor-row-actions form {
+    display: inline-flex;
+    margin: 0;
+}
+@media (max-width: 640px) {
+    .Arbor .arbor-list-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+    }
+    .Arbor .arbor-list-meta {
+        text-align: left;
+    }
+    .Arbor .arbor-row-actions {
+        justify-content: flex-start;
+    }
+}
+
+/* ---------- quickstart ---------- */
+.Arbor .arbor-quickstart ol {
+    padding-left: 1.2em;
+    font-size: 0.9rem;
+}
+.Arbor .arbor-quickstart li { margin-bottom: 6px; }
+.Arbor .arbor-quicklinks a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+    color: var(--pw-text-color);
+    text-decoration: none;
+}
+.Arbor .arbor-quicklinks a:hover { color: var(--pw-main-color); }
+.Arbor .arbor-quicklinks a [uk-icon] { color: var(--pw-muted-color); }
+
+/* ---------- API reference card ---------- */
+.Arbor .arbor-api-card {
+    margin-top: 24px;
+}
+.Arbor .arbor-api-accordion > li {
+    border-bottom: 1px solid var(--pw-border-color);
+    padding-bottom: 4px;
+}
+.Arbor .uk-accordion-title,
+.Arbor .uk-accordion-title:hover,
+.Arbor .uk-accordion-title:focus {
+    text-decoration: none !important;
+}
+.Arbor .arbor-api-accordion .uk-accordion-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--pw-text-color);
+    padding: 8px 0;
+}
+.Arbor .arbor-api-accordion .uk-accordion-title:hover {
+    color: var(--pw-main-color);
+}
+.Arbor .arbor-api-table td { padding: 6px 8px; vertical-align: middle; }
+.Arbor .arbor-api-table code {
+    font-size: 0.82em;
+    color: var(--pw-code-color);
+    background: var(--pw-code-background);
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+.Arbor .arbor-api-method {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: #fff;
+    text-align: center;
+    min-width: 56px;
+}
+.Arbor .arbor-api-get    { background: #1f7a4f; }
+.Arbor .arbor-api-post   { background: #1a5fa3; }
+.Arbor .arbor-api-put    { background: #b56f00; }
+.Arbor .arbor-api-delete { background: #a8322e; }
+
+/* ---------- tree list overview (single tree) ---------- */
+.Arbor .arbor-overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+    margin-bottom: 24px;
+}
+.Arbor .arbor-overview-card {
+    background: var(--pw-blocks-background);
+    border: 1px solid var(--pw-border-color);
+    border-radius: 6px;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: var(--pw-text-color);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.Arbor .arbor-overview-card:hover {
+    border-color: var(--pw-main-color);
+    color: var(--pw-text-color);
+    transform: translateY(-1px);
+}
+.Arbor .arbor-overview-card .arbor-overview-count {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--pw-main-color);
+    line-height: 1.1;
+}
+.Arbor .arbor-overview-card .arbor-overview-label {
+    font-size: 0.85rem;
+    color: var(--pw-muted-color);
+    margin-top: 4px;
+}
+
+.Arbor .arbor-check-list > li {
+    padding: 10px 0;
+}
+.Arbor .arbor-check-row > a {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    color: var(--pw-text-color);
+    text-decoration: none;
+}
+.Arbor .arbor-check-row > a:hover strong {
+    color: var(--pw-main-color);
+}
+.Arbor .arbor-check-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 28px;
+    padding: 0 8px;
+    border-radius: 999px;
+    background: var(--pw-main-color);
+    color: #fff;
+    font-weight: 700;
+    line-height: 1;
+}
+.Arbor .arbor-check-text {
+    display: grid;
+    gap: 2px;
+}
+.Arbor .arbor-check-text small {
+    color: var(--pw-muted-color);
+    line-height: 1.35;
+}
+.Arbor .arbor-check-row.is-done .arbor-check-count {
+    background: var(--pw-border-color);
+    color: var(--pw-muted-color);
+}
+.Arbor .arbor-check-row.is-done strong {
+    color: var(--pw-muted-color);
+}
+
+/* ---------- search bar ---------- */
+.Arbor .arbor-search {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 16px;
+}
+.Arbor .arbor-search .uk-input { max-width: 28em; }
+.Arbor .arbor-filter-note {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    margin: 0 0 14px;
+    padding: 8px 10px;
+    border: 1px solid var(--pw-border-color);
+    border-radius: 6px;
+    background: var(--pw-blocks-background);
+    color: var(--pw-muted-color);
+}
+.Arbor .arbor-filter-note strong {
+    color: var(--pw-text-color);
+}
+
+/* ---------- repeater (multi-row inline tables) ---------- */
+.Arbor .arbor-repeater {
+    border: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    background: transparent;
+}
+.Arbor .arbor-repeater table {
+    margin: 0;
+    background: transparent;
+}
+.Arbor .arbor-repeater th {
+    background: transparent;
+    color: var(--pw-muted-color);
+    font-weight: 600;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 10px 8px;
+    border-bottom: 0 !important;
+}
+.Arbor .arbor-repeater td {
+    padding: 6px 8px;
+    background: transparent;
+    border-top: 0 !important;
+    vertical-align: middle;
+}
+.Arbor .arbor-repeater td input.uk-input,
+.Arbor .arbor-repeater td select.uk-select {
+    width: 100%;
+    min-width: 5em;
+}
+.Arbor .arbor-repeater td.arbor-del {
+    width: 36px;
+    text-align: center;
+}
+.Arbor .arbor-repeater td .arbor-soundex {
+    font-size: 0.72em;
+    color: var(--pw-muted-color);
+}
+
+.Arbor .arbor-card table.uk-table,
+.Arbor .arbor-card table.uk-table th,
+.Arbor .arbor-card table.uk-table td {
+    border-left: 0 !important;
+    border-right: 0 !important;
+}
+
+.Arbor .arbor-card .uk-table-divider > tr:not(:first-child),
+.Arbor .arbor-card .uk-table-divider > :not(:first-child) > tr,
+.Arbor .arbor-card .uk-table-divider > :first-child > tr:not(:first-child) {
+    border-top-color: transparent !important;
+}
+
+/* ---------- photo gallery ---------- */
+.Arbor .arbor-photos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 8px;
+    margin-bottom: 12px;
+}
+.Arbor .arbor-photo {
+    background: var(--pw-inputs-background);
+    border: 1px solid var(--pw-border-color);
+    border-radius: 4px;
+    padding: 6px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.Arbor .arbor-photo img {
+    max-width: 100%;
+    max-height: 110px;
+    border-radius: 2px;
+}
+.Arbor .arbor-photo .arbor-photo-title {
+    font-size: 0.75rem;
+    color: var(--pw-muted-color);
+    margin-top: 4px;
+    word-break: break-word;
+    line-height: 1.2;
+}
+.Arbor .arbor-photo .uk-label {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+}
+
+/* ---------- tree viewer ---------- */
+.Arbor .arbor-viewer-toolbar {
+    padding: 8px 12px;
+    background: var(--pw-inputs-background);
+    border: 1px solid var(--pw-border-color);
+    border-radius: 6px;
+    margin-bottom: 8px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.Arbor .arbor-viewer-search {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.Arbor .arbor-viewer-search .uk-input {
+    width: 180px;
+}
+.Arbor .arbor-viewer-search-status {
+    min-width: 64px;
+    color: var(--pw-muted-color);
+    font-size: 0.8rem;
+}
+.Arbor .arbor-viewer-agenda,
+.Arbor .arbor-viewer-legend {
+    position: relative;
+}
+.Arbor .arbor-viewer-agenda summary,
+.Arbor .arbor-viewer-legend summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 0 8px;
+    color: var(--pw-text-color);
+}
+.Arbor .arbor-viewer-agenda summary::-webkit-details-marker,
+.Arbor .arbor-viewer-legend summary::-webkit-details-marker {
+    display: none;
+}
+.Arbor .arbor-viewer-agenda-body,
+.Arbor .arbor-viewer-legend-body {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    width: 230px;
+    padding: 12px;
+    border-radius: 6px;
+    background: var(--pw-blocks-background);
+    border: 1px solid var(--pw-border-color);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+    z-index: 4;
+    display: grid;
+    gap: 8px;
+}
+.Arbor .arbor-viewer-agenda-body {
+    width: 260px;
+}
+.Arbor .arbor-viewer-agenda-body p {
+    margin: 0;
+    color: var(--pw-text-color);
+    font-size: 0.88rem;
+}
+.Arbor .arbor-viewer-agenda-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-top: 4px;
+}
+.Arbor .arbor-viewer-agenda-actions[hidden] {
+    display: none;
+}
+.Arbor .arbor-viewer-set-main {
+    margin: 0;
+}
+.Arbor .arbor-viewer-set-main[hidden] {
+    display: none;
+}
+.Arbor .arbor-viewer-agenda-actions a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 30px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--pw-border-color);
+    color: var(--pw-text-color);
+    text-decoration: none;
+    font-size: 0.84rem;
+}
+.Arbor .arbor-viewer-agenda-actions a:hover {
+    border-color: var(--pw-main-color);
+    color: var(--pw-main-color);
+}
+.Arbor .arbor-viewer-legend-body span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--pw-text-color);
+    font-size: 0.88rem;
+}
+.Arbor .arbor-legend-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid var(--pw-muted-color);
+    background: var(--pw-inputs-background);
+    flex: 0 0 auto;
+}
+.Arbor .arbor-legend-dot.male { background: light-dark(#cde4f2, #1a3650); border-color: light-dark(#4a7ca8, #6ea8d8); }
+.Arbor .arbor-legend-dot.female { background: light-dark(#f9dede, #4a1a1a); border-color: light-dark(#c46e6e, #d88080); }
+.Arbor .arbor-legend-dot.main { background: var(--pw-inputs-background); border-color: var(--pw-main-color); box-shadow: 0 0 0 2px color-mix(in srgb, var(--pw-main-color) 35%, transparent); }
+.Arbor .arbor-legend-line {
+    width: 28px;
+    height: 0;
+    border-top: 2px solid var(--pw-border-color);
+    flex: 0 0 auto;
+}
+.Arbor .arbor-legend-line.spouse {
+    border-top-color: var(--pw-main-color);
+    border-top-style: dashed;
+}
+.Arbor .arbor-viewer {
+    border: 1px solid var(--pw-border-color);
+    border-radius: 6px;
+    background: var(--pw-blocks-background);
+    min-height: 600px;
+    position: relative;
+    overflow: hidden;
+}
+.Arbor .arbor-viewer-empty {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 32px;
+}
+.Arbor .arbor-viewer-empty-inner {
+    max-width: 520px;
+    color: var(--pw-text-color);
+}
+.Arbor .arbor-viewer-empty-inner [uk-icon] {
+    color: var(--pw-muted-color);
+    margin-bottom: 12px;
+}
+.Arbor .arbor-viewer-empty-inner h3 {
+    margin: 0.5rem 0;
+}
+.Arbor .arbor-viewer-note {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    max-width: min(360px, calc(100% - 32px));
+    padding: 10px 12px;
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--pw-blocks-background) 90%, var(--pw-text-color) 10%);
+    color: var(--pw-muted-color);
+    font-size: 0.88rem;
+    z-index: 2;
+}
+.Arbor .arbor-viewer-note[hidden] { display: none; }
+.Arbor .arbor-viewer-person {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    width: min(280px, calc(100% - 32px));
+    max-height: calc(100% - 32px);
+    padding: 16px;
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--pw-blocks-background) 92%, var(--pw-text-color) 8%);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+    overflow: auto;
+    z-index: 2;
+}
+.Arbor .arbor-viewer-person[hidden] { display: none; }
+.Arbor .arbor-viewer-person-close {
+    position: absolute;
+    right: 8px;
+    top: 6px;
+    border: 0;
+    background: transparent;
+    color: var(--pw-muted-color);
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+}
+.Arbor .arbor-viewer-person-kicker {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    color: var(--pw-muted-color);
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+}
+.Arbor .arbor-viewer-person h3 {
+    margin: 0 22px 4px 0;
+    font-size: 1.05rem;
+}
+.Arbor .arbor-viewer-person-meta {
+    margin: 0 0 8px;
+    color: var(--pw-muted-color);
+}
+.Arbor .arbor-viewer-person-relationship {
+    margin: 0 0 12px;
+    padding: 7px 9px;
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--pw-main-color) 10%, transparent);
+    color: var(--pw-text-color);
+    font-size: 0.86rem;
+}
+.Arbor .arbor-viewer-person-path {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin: 0 0 12px;
+    color: var(--pw-muted-color);
+    font-size: 0.82rem;
+}
+.Arbor .arbor-viewer-person-path[hidden] {
+    display: none;
+}
+.Arbor .arbor-viewer-path-label {
+    color: var(--pw-muted-color);
+}
+.Arbor .arbor-viewer-path-arrow {
+    color: var(--pw-muted-color);
+}
+.Arbor .arbor-viewer-person-relatives {
+    display: grid;
+    grid-template-columns: minmax(64px, auto) 1fr;
+    gap: 5px 10px;
+    margin: 0 0 12px;
+    padding: 10px 0;
+    border-top: 1px solid var(--pw-border-color);
+    border-bottom: 1px solid var(--pw-border-color);
+}
+.Arbor .arbor-viewer-person-relatives dt,
+.Arbor .arbor-viewer-person-relatives dd {
+    margin: 0;
+    font-size: 0.84rem;
+    line-height: 1.35;
+}
+.Arbor .arbor-viewer-person-relatives dt {
+    color: var(--pw-muted-color);
+}
+.Arbor .arbor-viewer-person-relatives dd {
+    color: var(--pw-text-color);
+}
+.Arbor .arbor-viewer-person-gaps {
+    margin: 0 0 12px;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid color-mix(in srgb, var(--pw-main-color) 28%, var(--pw-border-color));
+    background: color-mix(in srgb, var(--pw-main-color) 7%, transparent);
+}
+.Arbor .arbor-viewer-person-gaps[hidden] {
+    display: none;
+}
+.Arbor .arbor-viewer-gaps-title {
+    margin-bottom: 7px;
+    color: var(--pw-muted-color);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+}
+.Arbor .arbor-viewer-gaps-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.Arbor .arbor-viewer-gaps-list a {
+    display: inline-flex;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: var(--pw-inputs-background);
+    color: var(--pw-main-color);
+    font-size: 0.82rem;
+    text-decoration: none;
+}
+.Arbor .arbor-viewer-gaps-list a:hover {
+    text-decoration: underline;
+}
+.Arbor .arbor-relative-link {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--pw-main-color);
+    text-align: left;
+    line-height: 1.35;
+    cursor: pointer;
+}
+.Arbor .arbor-relative-link:hover {
+    text-decoration: underline;
+}
+.Arbor .arbor-viewer-person-path .arbor-viewer-path-person {
+    display: inline-flex;
+    width: auto;
+    max-width: 100%;
+}
+.Arbor .arbor-viewer-person-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.Arbor .arbor-viewer-person-actions .arbor-viewer-set-main {
+    flex: 1 1 100%;
+}
+
+.Arbor .node circle.male   { fill: light-dark(#cde4f2, #1a3650); stroke: light-dark(#4a7ca8, #6ea8d8); stroke-width: 1.5; }
+.Arbor .node circle.female { fill: light-dark(#f9dede, #4a1a1a); stroke: light-dark(#c46e6e, #d88080); stroke-width: 1.5; }
+.Arbor .node circle.unknown{ fill: var(--pw-inputs-background);   stroke: var(--pw-muted-color); stroke-width: 1.5; }
+.Arbor .node {
+    cursor: pointer;
+}
+.Arbor .node.selected circle {
+    stroke: var(--pw-main-color);
+    stroke-width: 3;
+}
+.Arbor .node.related circle {
+    stroke-width: 2.5;
+    filter: drop-shadow(0 0 3px color-mix(in srgb, var(--pw-main-color) 35%, transparent));
+}
+.Arbor .node.path circle {
+    stroke: var(--pw-main-color);
+    stroke-width: 3;
+}
+.Arbor .node.root circle {
+    stroke: var(--pw-main-color);
+    stroke-width: 3;
+    filter: drop-shadow(0 0 4px color-mix(in srgb, var(--pw-main-color) 60%, transparent));
+}
+.Arbor .node text.name { font: 12px sans-serif; fill: var(--pw-text-color); }
+.Arbor .node text.years{ font: 10px sans-serif; fill: var(--pw-muted-color); }
+.Arbor .link { fill: none; stroke: var(--pw-border-color); stroke-width: 1.5px; }
+.Arbor .link.spouse { stroke-dasharray: 3 3; stroke: var(--pw-main-color); }
+.Arbor .link.active {
+    stroke: var(--pw-main-color);
+    stroke-width: 2.4px;
+}
+.Arbor .link.path {
+    stroke: var(--pw-main-color);
+    stroke-width: 3px;
+}
+
+/* ---------- timeline ---------- */
+.Arbor .arbor-timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-left: 2px solid var(--pw-border-color);
+}
+.Arbor .arbor-timeline li {
+    position: relative;
+    padding: 8px 0 8px 18px;
+}
+.Arbor .arbor-timeline li::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 14px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--pw-main-color);
+}
+
+/* ---------- small utilities ---------- */
+.Arbor .uk-card-title [uk-icon] svg { vertical-align: -2px; }
+.Arbor .arbor-page-header h2 small { color: var(--pw-muted-color); font-size: 0.7em; margin-left: 8px; }
