@@ -10,7 +10,9 @@ inside the ProcessWire admin.
 Beta. Arbor is usable in a test copy, but should not be installed on an important
 production site without a full database and file backup first.
 
-Repository: [github.com/mxmsmnv/Arbor](https://github.com/mxmsmnv/Arbor)
+Repository: [github.com/mxmsmnv/Arbor](https://github.com/mxmsmnv/Arbor)  
+
+If this project helps your work, consider supporting future development: [GitHub Sponsors](https://github.com/sponsors/mxmsmnv) or [smnv.org/sponsor](https://smnv.org/sponsor/).
 
 Author: Maxim Semenov  
 Website: [smnv.org](https://smnv.org)  
