@@ -5,6 +5,8 @@ It combines people, families, places, sources, documents, photos, DNA notes,
 research questions, search logs, tasks, proof conclusions, and GEDCOM import/export
 inside the ProcessWire admin.
 
+![Arbor](assets/Arbor.png)
+
 ## Status
 
 Beta. Arbor is usable in a test copy, but should not be installed on an important
