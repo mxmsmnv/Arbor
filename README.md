@@ -5,7 +5,7 @@ It combines people, families, places, sources, documents, photos, DNA notes,
 research questions, search logs, tasks, proof conclusions, and GEDCOM import/export
 inside the ProcessWire admin.
 
-![Arbor](assets/Arbor.png)
+![Arbor](assets/readme-doodle.png)
 
 ## Status
 
