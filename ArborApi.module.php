@@ -14,7 +14,7 @@ class ArborApi extends WireData implements Module, ConfigurableModule
     {
         return [
             'title'    => 'Arbor REST API',
-            'version'  => 100,
+            'version'  => 101,
             'summary'  => 'JSON REST API for the Arbor genealogy module',
             'icon'     => 'cloud',
             'requires' => ['Arbor'],
@@ -709,7 +709,7 @@ class ArborApi extends WireData implements Module, ConfigurableModule
         $base = '/' . trim($this->apiBase, '/') . '/';
         return [
             'service' => 'Arbor REST API',
-            'version'  => 100,
+            'version'  => 101,
             'base'    => $base,
             'auth'    => 'Public reads on public trees; cookie session + CSRF or Bearer token for writes.',
             'groups'  => [

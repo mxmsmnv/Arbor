@@ -24,7 +24,7 @@ If this project helps your work, consider supporting future development: [GitHub
 
 - ProcessWire 3.0.200 or newer
 - PHP 8.1 or newer
-- MySQL/MariaDB with InnoDB
+- MySQL/MariaDB, SQLite, or PostgreSQL through ProcessWire's database layer
 
 ## Modules
 

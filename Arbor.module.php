@@ -15,7 +15,7 @@ class Arbor extends WireData implements Module, ConfigurableModule
     {
         return [
             'title'    => 'Arbor',
-            'version'  => 100,
+            'version'  => 101,
             'summary'  => 'Professional genealogy module: event-centric, source-centric data model aligned with GEDCOM 7.0 and Gramps. Multi-script names, fond/opis/delo citations, DNA, GPS research workflow, REST API, GEDCOM import/export, optional AiWire integration.',
             'author'   => 'Maxim Semenov',
             'href'     => 'https://smnv.org',

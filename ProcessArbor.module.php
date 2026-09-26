@@ -36,7 +36,7 @@ class ProcessArbor extends Process
     {
         return [
             'title' => 'Arbor',
-            'version'  => 100,
+            'version'  => 101,
             'summary' => 'Admin interface for the Arbor genealogy module',
             'icon' => 'tree',
             'permission' => 'arbor-view',
@@ -4418,7 +4418,7 @@ class ProcessArbor extends Process
             "SELECT id FROM arbor_citations
              WHERE source_id = :source
                AND person_id = :person
-               AND document_id <=> :document
+               AND (document_id = :document OR (document_id IS NULL AND :document_null IS NULL))
                AND event_id = :event
                AND id != :id
              LIMIT 1"
@@ -4427,6 +4427,7 @@ class ProcessArbor extends Process
         $dup->bindValue(':source', (int) $citation['source_id'], \PDO::PARAM_INT);
         $dup->bindValue(':person', (int) $citation['person_id'], \PDO::PARAM_INT);
         $dup->bindValue(':document', $documentId, $documentId === null ? \PDO::PARAM_NULL : \PDO::PARAM_INT);
+        $dup->bindValue(':document_null', $documentId, $documentId === null ? \PDO::PARAM_NULL : \PDO::PARAM_INT);
         $dup->bindValue(':event', $eventId, \PDO::PARAM_INT);
         $dup->bindValue(':id', $citationId, \PDO::PARAM_INT);
         $dup->execute();

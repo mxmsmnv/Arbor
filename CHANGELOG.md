@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+
+- Replaced MySQL-only null-safe comparison SQL so citation duplicate checks work on MySQL, SQLite, and PostgreSQL.
+
 ## 1.0.0 - Beta
 
 - Initial public beta release.
