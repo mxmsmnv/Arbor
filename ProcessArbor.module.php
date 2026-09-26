@@ -36,7 +36,7 @@ class ProcessArbor extends Process
     {
         return [
             'title' => 'Arbor',
-            'version'  => 101,
+            'version'  => 102,
             'summary' => 'Admin interface for the Arbor genealogy module',
             'icon' => 'tree',
             'permission' => 'arbor-view',
@@ -1722,8 +1722,8 @@ class ProcessArbor extends Process
         $db = $this->wire('database');
         $parentState = $db->prepare(
             "SELECT
-                SUM(u.partner1_id IS NOT NULL OR u.partner2_id IS NOT NULL) AS known_parent_count,
-                SUM(uc.pedigree = 'foundling') AS unknown_parent_count
+                SUM(CASE WHEN u.partner1_id IS NOT NULL OR u.partner2_id IS NOT NULL THEN 1 ELSE 0 END) AS known_parent_count,
+                SUM(CASE WHEN uc.pedigree = 'foundling' THEN 1 ELSE 0 END) AS unknown_parent_count
              FROM arbor_union_children uc
              JOIN arbor_unions u ON u.id = uc.union_id
              WHERE uc.person_id = :person
@@ -3991,11 +3991,11 @@ class ProcessArbor extends Process
         $stmt = $db->prepare(
             "SELECT
                 COUNT(*) AS all_count,
-                SUM(status = 'lead') AS lead_count,
-                SUM(status = 'found') AS found_count,
-                SUM(status = 'attached') AS attached_count,
-                SUM(status = 'dismissed') AS dismissed_count,
-                SUM(status NOT IN ('lead','dismissed') AND filename = '' AND external_url = '') AS missing_file_count
+                SUM(CASE WHEN status = 'lead' THEN 1 ELSE 0 END) AS lead_count,
+                SUM(CASE WHEN status = 'found' THEN 1 ELSE 0 END) AS found_count,
+                SUM(CASE WHEN status = 'attached' THEN 1 ELSE 0 END) AS attached_count,
+                SUM(CASE WHEN status = 'dismissed' THEN 1 ELSE 0 END) AS dismissed_count,
+                SUM(CASE WHEN status NOT IN ('lead','dismissed') AND filename = '' AND external_url = '' THEN 1 ELSE 0 END) AS missing_file_count
              FROM arbor_documents
              WHERE tree_id = :t"
         );

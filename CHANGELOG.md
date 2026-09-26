@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2
+
+- Replaced boolean `SUM()` expressions with conditional aggregates so parent
+  research and document dashboard counts work on PostgreSQL.
+
 ## 1.0.1
 
 - Replaced MySQL-only null-safe comparison SQL so citation duplicate checks work on MySQL, SQLite, and PostgreSQL.
