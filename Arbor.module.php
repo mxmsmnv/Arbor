@@ -1,5 +1,7 @@
 <?php namespace ProcessWire;
 
+require_once __DIR__ . '/src/ArborPocketWireProviderTrait.php';
+
 /**
  * Arbor — ProcessWire Genealogy Tree Module
  *
@@ -9,13 +11,15 @@
  */
 class Arbor extends WireData implements Module, ConfigurableModule
 {
+    use ArborPocketWireProviderTrait;
+
     const SCHEMA_VERSION = 3;
 
     public static function getModuleInfo(): array
     {
         return [
             'title'    => 'Arbor',
-            'version'  => 102,
+            'version'  => 103,
             'summary'  => 'Professional genealogy module: event-centric, source-centric data model aligned with GEDCOM 7.0 and Gramps. Multi-script names, fond/opis/delo citations, DNA, GPS research workflow, REST API, GEDCOM import/export, optional AiWire integration.',
             'author'   => 'Maxim Semenov',
             'href'     => 'https://smnv.org',
@@ -24,6 +28,7 @@ class Arbor extends WireData implements Module, ConfigurableModule
             'installs' => ['ProcessArbor', 'ArborApi'],
             'autoload' => true,
             'singular' => true,
+            'pocketWireProvider' => true,
             'permissions' => [
                 'arbor-view'  => 'View Arbor genealogy trees',
                 'arbor-edit'  => 'Edit Arbor genealogy data',

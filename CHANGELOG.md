@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.3
+
+- Added an opt-in, current-actor PocketWire status provider guarded by
+  `arbor-view`, without genealogy inventory, living-person data or write tools.
+
 ## 1.0.2
 
 - Replaced boolean `SUM()` expressions with conditional aggregates so parent

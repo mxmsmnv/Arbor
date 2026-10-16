@@ -65,6 +65,15 @@ Arbor installs these permissions:
 Public trees can be viewed without ownership checks. Editing always requires a
 logged-in user with the correct Arbor permission.
 
+## PocketWire
+
+Arbor's PocketWire opt-in is intentionally status-only. The request actor must
+be the current ProcessWire user and a superuser or logged-in user with
+`arbor-view`. PocketWire never receives tree names or counts, people, families,
+places, sources, documents, photos, DNA or research records—including data from
+trees marked public—and exposes no write action. Genealogy browsing remains in
+Arbor's existing permission- and living-person-aware interfaces.
+
 ## Data And Files
 
 Arbor creates database tables prefixed with `arbor_`.

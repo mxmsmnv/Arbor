@@ -36,7 +36,7 @@ class ProcessArbor extends Process
     {
         return [
             'title' => 'Arbor',
-            'version'  => 102,
+            'version'  => 103,
             'summary' => 'Admin interface for the Arbor genealogy module',
             'icon' => 'tree',
             'permission' => 'arbor-view',
